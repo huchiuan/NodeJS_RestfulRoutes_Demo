@@ -11,22 +11,27 @@ app.set('view engine','ejs')
 
 const comments=[
     {
+        id:1,
         username: 'Tod',
         comment:'不好笑'
     },
-    {
+    {   
+        id:2,
         username: 'AAd',
         comment:'好笑'
     },
     {
+        id:3,
         username: '哥哥',
         comment:'普通'
     },
     {
+        id:4,
         username: '子瑜',
         comment:'讚'
     },
     {
+        id:5,
         username: '狗',
         comment:'不太有趣'
     },
@@ -45,6 +50,20 @@ app.post('/comments',(req,res)=>{
     res.redirect('/comments');
 })
 
+app.get('/comments/:id',(req,res)=>{
+   const {id}= req.params;
+   const comment = comments.find(c=>c.id === parseInt(id));
+
+   res.render('comments/show',{comment})
+})
+//function (x) {
+//     return x+2
+// }
+// 等於下面這種寫法
+// (x) => {
+//   return x+2
+// }
+//在你只有一個參數的狀態下，你可以不需要加上括號，繼續簡潔下去。
 app.get('/tacos',(req,res) =>{
  res.send("get /tacos response")
 })
