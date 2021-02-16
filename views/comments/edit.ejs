@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+<body>
+    <h1>Edit</h1>
+    <form method ="POST" action="/comments/<%=comment.id%>?_method=PATCH"> <!--把post的METHOD OVERRIDE 變成 PATCH (nodejs的包)，
+    原因是因為web不能直接使用純patch-->
+        <textarea name="comment" id="" cols="30" rows="10">
+
+            <%= comment.comment %>
+        </textarea>
+        <button>動作</button>
+
+    </form>
+
+</body>
+</html>

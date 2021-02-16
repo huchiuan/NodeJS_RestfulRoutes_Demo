@@ -1,6 +1,7 @@
 const express = require ('express');
 const app = express ();
 const path = require('path');
+const methodOverride =require('method-override');
 const { v4:uuid } = require('uuid');
 
 
@@ -8,6 +9,7 @@ const { v4:uuid } = require('uuid');
 app.use (express.urlencoded({ extended : true}))
 //上行是用來處理request 資料用的 叫express解析
 app.use(express.json())//用此行 可以在request的時候傳進來JSON 在剖析
+app.use(methodOverride('_method'))
 app.set('views',path.join(__dirname,'views'))
 app.set('view engine','ejs')
 
@@ -67,6 +69,24 @@ app.get('/comments/:id',(req,res)=>{
 //   return x+2
 // }
 //在你只有一個參數的狀態下，你可以不需要加上括號，繼續簡潔下去。
+
+
+app.get('/comments/:id/edit',(req,res)=>{
+    const {id}= req.params;
+    const comment = comments.find(c=>c.id === id);
+ 
+    res.render('comments/edit',{comment})
+ })
+
+app.patch('/comments/:id',(req,res)=>{
+    const {id}= req.params;
+    const newCommentText = req.body.comment;
+    const foundComment = comments.find(c=>c.id ===id);
+    foundComment.comment=newCommentText;
+    res.redirect('/comments');
+ })
+
+
 app.get('/tacos',(req,res) =>{
  res.send("get /tacos response")
 })
