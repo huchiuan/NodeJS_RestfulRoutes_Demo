@@ -14,7 +14,7 @@ app.set('views',path.join(__dirname,'views'))
 app.set('view engine','ejs')
 
 
-const comments=[
+let comments=[
     {
         id:uuid(),
         username: 'Tod',
@@ -86,6 +86,11 @@ app.patch('/comments/:id',(req,res)=>{
     res.redirect('/comments');
  })
 
+ app.delete('/comments/:id',(req,res)=>{
+    const {id}= req.params;
+    comments = comments.filter(c=> c.id !==id);
+    res.redirect('/comments');
+ })
 
 app.get('/tacos',(req,res) =>{
  res.send("get /tacos response")
